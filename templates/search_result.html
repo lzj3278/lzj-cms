@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block center %}
+    <!-- Center Column -->
+		<div class="col-sm-6">
+			<!-- Articles -->
+			{% for article in contacts %}
+			<div class="row">
+				<article class="col-xs-12">
+					<h2><a id="article_title", href="/cms/{{ article.id }}">{{ article.title }}</a></h2>
+					<p>{{ article.content|truncatechars_html:80 | safe }}</p>
+				<!-- 	<p><button class="btn btn-default">Read More</button></p>  -->
+					<p class="pull-right"><span class="label label-default">{{ article.column }}</span> <span class="label label-default">tag</span> <span class="label label-default">{{ article.author }}</span></p>
+					<ul class="list-inline">
+						<li><a href="#">{{ article.pub_date | date:"j M" }}</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>{{ article.keep_num }} 喜欢</a></li>
+					</ul>
+				</article>
+			</div>
+			{% endfor %}
+        {# 分页 #}
+        <div class="col-sm-12">
+            <div  id="pagination1">
+                <ul class="pagination">
+                    {% if contacts.has_previous %}
+                    <li class="previous"><a href="?page={{ contacts.previous_page_number }}&&keyword={{ keyword }}">{{ previous_link_decorator|safe }}上一页</a>
+                    </li>
+                    {% else %}
+                        <li class="previous-off"><a href="#">{{ previous_link_decorator|safe }}上一页</a>
+                        </li>
+                    {% endif %}
+{#                    <li class="active">{{ contacts.number }}/{{ contacts.paginator.num_pages }}</li>#}
+
+                    {% for page in contacts.paginator.page_range %}
+                        {% if page %}
+                            {%  ifequal page contacts.number %}
+                                <li class="active"><span >{{ page }}</span></li>
+                            {% else %}
+                                <li><a href="?page={{ page }}&&keyword={{ keyword }}" class="page">{{ page }}</a>
+                                </li>
+                            {% endifequal %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {% if contacts.has_next %}
+                        <li class="next"><a href="?page={{ contacts.next_page_number }}&&keyword={{ keyword }}"><span>下一页</span></a>
+                        </li>
+                    {% else %}
+                        <li class="next-off"><a href="#"><span>下一页</span></a>
+                        </li>
+
+                    {% endif %}
+                </ul>
+            </div>
+		</div>
+		</div>
+<!--/Center Column-->
+{% endblock %}

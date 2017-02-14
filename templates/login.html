@@ -1,0 +1,16 @@
+{% extends 'login_base.html' %}
+
+{% block content %}
+    {% if error %}
+        <div class="alert alert-danger text-center">{{ error }}</div>
+    {% endif %}
+            <h2>Welcome to CMS</h2>
+            <form class="m-t" role="form" method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+{#                <a href="{% url 'password_forget' %}"><small>Forgot password? </small></a>#}
+            </form>
+            <p class="m-t"> <small><b>Copyright</b> hh</small> </p>
+
+{% endblock %}

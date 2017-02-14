@@ -1,0 +1,40 @@
+        <div class="col-sm-6">
+            <div  id="pagination1">
+                <ul class="pagination">
+                    {% if contacts.has_previous %}
+                    <li class="previous"><a href="?page={{ contacts.previous_page_number }}">{{ previous_link_decorator|safe }}上一页</a>
+                    </li>
+                    {% else %}
+                        <li class="previous-off"><a href="#">{{ previous_link_decorator|safe }}上一页</a>
+                        </li>
+                    {% endif %}
+{#                    <li class="active">{{ contacts.number }}/{{ contacts.paginator.num_pages }}</li>#}
+                    {% ifequal show_first 1 %}
+                    <li class="paginate_button" aria-controls="editable" tabindex="0"><a class="page" href="?page=1"  title="第1页">1...</a></li>
+                    {% endifequal %}
+                    {% for page in contacts.paginator.page_range %}
+                        {% if page %}
+                            {%  ifequal page contacts.number %}
+                                <li class="active"><span >{{ page }}</span></li>
+                            {% else %}
+                                <li><a href="?page={{ page }}" class="page">{{ page }}</a>
+                                </li>
+                            {% endifequal %}
+
+                        {% endif %}
+
+                    {% endfor %}
+                    {% ifequal show_end 1 %}
+                    <li class="paginate_button" aria-controls="editable" tabindex="0"><a class="page" href="?page={{ contacts.num_pages }}"  title="第{{ page }}页">...{{ contacts.num_pages }}</a></li>
+                    {% endifequal %}
+                    {% if contacts.has_next %}
+                        <li class="next"><a href="?page={{ contacts.next_page_number }}"><span>下一页</span></a>
+                        </li>
+                    {% else %}
+                        <li class="next-off"><a href="#"><span>下一页</span></a>
+                        </li>
+
+                    {% endif %}
+                </ul>
+            </div>
+		</div>

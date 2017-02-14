@@ -1,0 +1,41 @@
+{% extends 'login_base.html' %}
+
+{% block content %}
+    <script>
+    function authentication(){
+        var raw_username = document.getElementById("username").value;
+	    $.ajax({type:'POST', data: {'raw_username': raw_username}
+	    });
+    }
+    </script>
+    <h2>注册</h2>
+     {% if msg %}
+     <div class="alert alert-danger text-center">{{ msg }}</div>
+     {% endif %}
+
+    <form class="m-t" role="form" action="/cms/register/" method="post" >
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="username">
+        {{ form.username.errors }}
+        <p>{{ form.username }}</p>
+        {% csrf_token %}
+        <div class="email">
+        {{ form.email.errors }}
+        <p> {{ form.email }}</p>
+        </div>
+
+        <div class="password1">
+        {{ form.password1.errors }}
+        <p> {{ form.password1 }}</p>
+
+        </div>
+
+        <div class="password2">
+        {{ form.password2.errors }}
+        <p > {{ form.password2 }}</p>
+
+        </div>
+        <input id="sub" class="btn btn-primary block full-width m-b" type="submit" value="Submit" >
+    </form>
+{% endblock %}

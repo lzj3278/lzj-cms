@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block center %}
+<!-- Center Column -->
+		<div class="col-sm-6">
+			<!-- Articles -->
+			{% for article in contacts %}
+			<div class="row">
+				<article class="col-xs-12">
+					<h2><a id="article_title", href="/cms/{{ article.id }}">{{ article.title }}</a></h2>
+					<p>{{ article.content|truncatechars_html:80 | safe }}</p>
+				<!-- 	<p><button class="btn btn-default">Read More</button></p>  -->
+					<p class="pull-right"><span class="label label-default">{{ article.column }}</span> <span class="label label-default">tag</span> <span class="label label-default">{{ article.author }}</span></p>
+					<ul class="list-inline">
+						<li><a href="#">{{ article.pub_date | date:"Y-m-d " }}</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} 评论</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>{{ article.keep_num }} 喜欢</a></li>
+					</ul>
+				</article>
+			</div>
+			{% endfor %}
+ {% include 'paginator.html' %}
+    </div>
+<!--/Center Column-->
+{% endblock %}
+  
+
+
+
+
+
